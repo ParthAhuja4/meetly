@@ -1,4 +1,3 @@
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,6 +20,7 @@ import { authClient } from "@/lib/auth-client";
 import { ChevronDownIcon, CreditCardIcon, LogOutIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import GeneratedAvatar from "@/components/ui/generated-avatar";
 
 export default function DashboardUserButton() {
   const router = useRouter();
@@ -34,15 +34,7 @@ export default function DashboardUserButton() {
   return !isMobile ? (
     <DropdownMenu>
       <DropdownMenuTrigger className="rounded-lg border border-border/10 p-3 w-full flex items-center justify-between bg-white/5 hover:bg-white/10 overflow-hidden gap-x-2">
-        <Avatar>
-          <AvatarImage
-            src={
-              data?.user?.image
-                ? data.user.image
-                : "https://www.gravatar.com/avatar/?d=mp"
-            }
-          />
-        </Avatar>
+        <GeneratedAvatar variant="initials" seed={data.user.name} />
         <div className="flex flex-col gap-0.5 text-left overflow-hidden flex-1 min-w-8">
           <p className="text-sm truncate w-full">{data.user.name}</p>
           <p className="text-xs truncate w-full">{data.user.email}</p>
@@ -77,15 +69,7 @@ export default function DashboardUserButton() {
   ) : (
     <Drawer>
       <DrawerTrigger className="rounded-lg border border-border/10 p-3 w-full flex items-center justify-between bg-white/5 hover:bg-white/10 overflow-hidden gap-x-2">
-        <Avatar>
-          <AvatarImage
-            src={
-              data?.user?.image
-                ? data.user.image
-                : "https://www.gravatar.com/avatar/?d=mp"
-            }
-          />
-        </Avatar>
+        <GeneratedAvatar variant="initials" seed={data.user.name} />
         <div className="flex flex-col gap-0.5 text-left overflow-hidden flex-1 min-w-8">
           <p className="text-sm truncate w-full">{data.user.name}</p>
           <p className="text-xs truncate w-full">{data.user.email}</p>

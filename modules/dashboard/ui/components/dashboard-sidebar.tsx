@@ -10,6 +10,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { BotIcon, StarIcon, VideoIcon } from "lucide-react";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
@@ -47,6 +48,7 @@ const secondSection: Array<section> = [
 
 export default function DashboardSidebar() {
   const pathname = usePathname();
+  const { toggleSidebar, isMobile } = useSidebar();
   return (
     <Sidebar>
       <SidebarHeader className="text-sidebar-accent-foreground">
@@ -64,6 +66,11 @@ export default function DashboardSidebar() {
               {firstSection.map((item) => (
                 <SidebarMenuItem key={item.href}>
                   <SidebarMenuButton
+                    onClick={() => {
+                      if (isMobile) {
+                        toggleSidebar();
+                      }
+                    }}
                     asChild
                     isActive={item.href === pathname}
                     className={cn(
@@ -82,7 +89,7 @@ export default function DashboardSidebar() {
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
-        </SidebarGroup>{" "}
+        </SidebarGroup>
         <Separator className="opacity-10 text-[#5D6B68]" />
         <SidebarGroup>
           <SidebarGroupContent>
@@ -90,6 +97,11 @@ export default function DashboardSidebar() {
               {secondSection.map((item) => (
                 <SidebarMenuItem key={item.href}>
                   <SidebarMenuButton
+                    onClick={() => {
+                      if (isMobile) {
+                        toggleSidebar();
+                      }
+                    }}
                     asChild
                     isActive={item.href === pathname}
                     className={cn(
