@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react";
 import { SearchIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { useAgentsFilters } from "../../hooks/use-agents-filters";
 import { useDebounce } from "use-debounce";
+import { useMeetingsFilters } from "../../hooks/use-meetings-filters";
 
-export default function SearchFilter() {
-  const [filters, setFilters] = useAgentsFilters();
+export default function MeetingsSearchFilter() {
+  const [filters, setFilters] = useMeetingsFilters();
   const [localSearch, setLocalSearch] = useState(filters.search ?? "");
   const [debouncedSearch] = useDebounce(localSearch, 500);
 
