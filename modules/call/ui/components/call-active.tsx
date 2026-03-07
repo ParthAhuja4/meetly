@@ -12,7 +12,7 @@ interface Props {
 export const CallActive = ({ onLeave, meetingName }: Props) => {
   useEffect(() => {
     toast.success(
-      "If no agents join, API credits are depleted, the app is working normally.",
+      "If agent doesn't answer, API credits are depleted, the app is working normally.",
       { id: "credits" },
     );
   }, []);
