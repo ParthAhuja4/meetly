@@ -21,6 +21,7 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import DashboardUserButton from "./dashboard-user-button";
+import { DashboardTrial } from "./dashboard-trial";
 
 export type section = {
   icon: ForwardRefExoticComponent<
@@ -123,6 +124,7 @@ export default function DashboardSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="text-white">
+        <DashboardTrial />
         <DashboardUserButton />
       </SidebarFooter>
     </Sidebar>

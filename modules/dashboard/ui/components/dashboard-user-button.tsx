@@ -51,7 +51,10 @@ export default function DashboardUserButton() {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="cursor-pointer flex items-center justify-between">
+        <DropdownMenuItem
+          className="cursor-pointer flex items-center justify-between"
+          onClick={() => authClient.customer.portal()}
+        >
           Billing <CreditCardIcon className="size-4" />
         </DropdownMenuItem>
         <DropdownMenuItem
@@ -82,7 +85,10 @@ export default function DashboardUserButton() {
           <DrawerDescription>{data.user.email}</DrawerDescription>
         </DrawerHeader>
         <DrawerFooter>
-          <Button variant="outline" onClick={() => {}}>
+          <Button
+            variant="outline"
+            onClick={() => authClient.customer.portal()}
+          >
             <CreditCardIcon className="size-4 text-black" />
             Billing
           </Button>

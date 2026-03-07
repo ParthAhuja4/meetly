@@ -13,15 +13,7 @@ import {
   CornerDownRightIcon,
   LoaderIcon,
 } from "lucide-react";
-import humanizeDuration from "humanize-duration";
-import { cn } from "@/lib/utils";
-
-const formatDuration = (seconds: number): string =>
-  humanizeDuration(seconds * 1000, {
-    largest: 1,
-    round: true,
-    units: ["h", "m", "s"],
-  });
+import { cn, formatDuration } from "@/lib/utils";
 
 const statusIconMap = {
   upcoming: ClockArrowUpIcon,

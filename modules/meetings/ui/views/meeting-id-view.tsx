@@ -12,8 +12,9 @@ import UpdateMeetingDialog from "../components/update-meeting-dialog";
 import { useState } from "react";
 import EmptyState from "@/components/ui/empty-state";
 import { Button } from "@/components/ui/button";
-import { BanIcon, VideoIcon } from "lucide-react";
+import { VideoIcon } from "lucide-react";
 import Link from "next/link";
+import CompletedState from "@/modules/meetings/ui/components/completed-state";
 
 interface Props {
   meetingId: string;
@@ -36,14 +37,17 @@ export default function MeetingIdView({ meetingId }: Props) {
 
   const removeMeeting = useMutation(
     trpc.meetings.remove.mutationOptions({
-      onSuccess: () => {
-        queryClient.invalidateQueries(trpc.meetings.getMany.queryOptions({}));
+      onSuccess: async () => {
+        await queryClient.invalidateQueries(
+          trpc.meetings.getMany.queryOptions({}),
+        );
+        await queryClient.invalidateQueries(
+          trpc.premium.getFreeUsage.queryOptions(),
+        );
         router.push("/meetings");
       },
     }),
   );
-
-  const onCancelMeeting = () => {};
 
   return (
     <>
@@ -81,7 +85,7 @@ export default function MeetingIdView({ meetingId }: Props) {
             />
           </div>
         )}
-        {isCompleted && <div>Completed</div>}
+        {isCompleted && <CompletedState data={data} />}
         {isActive && (
           <div className="bg-white rounded-lg px-4 py-5 flex flex-col gap-y-8 items-center justify-center">
             <EmptyState
@@ -107,20 +111,7 @@ export default function MeetingIdView({ meetingId }: Props) {
               description="Once you start this meeting, a summary will appear here"
             />
             <div className="flex flex-col-reverse lg:flex-row lg:justify-center items-center gap-2 w-full">
-              <Button
-                variant="secondary"
-                className="w-full lg:w-auto"
-                onClick={onCancelMeeting}
-                disabled={isCancelling}
-              >
-                <BanIcon />
-                Cancel Meeting
-              </Button>
-              <Button
-                disabled={isCancelling}
-                asChild
-                className="w-full lg:w-auto"
-              >
+              <Button disabled={false} asChild className="w-full lg:w-auto">
                 <Link href={`/call/${meetingId}`}>
                   <VideoIcon />
                   Start Meeting
