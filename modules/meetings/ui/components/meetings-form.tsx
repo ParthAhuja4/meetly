@@ -27,6 +27,7 @@ import { useDebounce } from "use-debounce";
 import CommandSelect from "./command-select";
 import GeneratedAvatar from "@/components/ui/generated-avatar";
 import NewAgentDialog from "@/modules/agents/ui/components/new-agent-dialog";
+import { useRouter } from "next/navigation";
 
 interface Props {
   onSuccess?: (id?: string) => void;
@@ -44,6 +45,7 @@ export default function MeetingsForm({
   const [localSearch, setLocalSearch] = useState("");
   const [debouncedSearch] = useDebounce(localSearch, 500);
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   const agents = useQuery({
     ...trpc.agents.getMany.queryOptions({
@@ -59,10 +61,16 @@ export default function MeetingsForm({
         await queryClient.invalidateQueries(
           trpc.meetings.getMany.queryOptions({}),
         );
+        await queryClient.invalidateQueries(
+          trpc.premium.getFreeUsage.queryOptions(),
+        );
         onSuccess?.(data.id);
       },
       onError: (eror) => {
         toast.error(eror.message);
+        if (eror.data?.code === "FORBIDDEN") {
+          router.push("/upgrade");
+        }
       },
     }),
   );
