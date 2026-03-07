@@ -88,29 +88,30 @@ The video interface is built on **@stream-io/video-react-sdk**:
 
 ```mermaid
 graph TD
-    subgraph Client_Layer [Client Layer (Next.js 16 + React 19)]
+
+    subgraph Client_Layer
         WebApp["Web App"]
         StreamClient["Stream Video SDK"]
     end
 
-    subgraph Server_Layer [Server Layer]
+    subgraph Server_Layer
         TRPC["tRPC Router"]
         Auth["Better Auth"]
         ServerActions["Server Actions"]
     end
 
-    subgraph Data_Layer [Data Persistence]
+    subgraph Data_Layer
         NeonDB["Neon Postgres"]
         Drizzle["Drizzle ORM"]
     end
 
-    subgraph Async_Orchestration [Inngest Workflow Engine]
+    subgraph Async_Orchestration
         InngestServer["Inngest Server"]
         AgentWorkflow["AI Agent Workflow"]
         AgentKit["Inngest Agent Kit"]
     end
 
-    subgraph External_Services [Managed Infrastructure]
+    subgraph External_Services
         StreamAPI["Stream API"]
         OpenAI["OpenAI Realtime API"]
         Polar["Polar.sh"]
@@ -172,7 +173,7 @@ Follow these instructions to set up Meetly locally.
 1.  **Clone the Repository**
 
     ```sh
-    git clone https://github.com/ParthAhuja4/meetly
+    git clone https://github.com/ParthAhuja4/meetly.git
     cd meetly
     ```
 
